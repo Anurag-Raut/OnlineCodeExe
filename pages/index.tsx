@@ -1,11 +1,20 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import axios from 'axios'
+import React, { useEffect,useState } from 'react';
+import Head from 'next/head';
+
+import CodeEditor from '../component/codeEditor';
 const inter = Inter({ subsets: ['latin'] })
+
 
 
 export default function Home() {
 
+  const [code, setCode] = useState('function sayHello() {\n  console.log("Hello, world!");\n}');
+  const handleCodeChange = (newCode:string) => {
+    setCode(newCode);
+  };
   async function send() {
     const textarea = document.getElementById('message') as HTMLTextAreaElement;
     const inputArea = document.getElementById('input') as HTMLTextAreaElement;
@@ -27,12 +36,16 @@ export default function Home() {
 
   }
   return (
-    <main className='w-screen'
-    >
+    <React.Fragment>
+       <Head>
+
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/styles/default.min.css"></link>
+    </Head>
       <div className='flex'>
 
         <div className='w-full'>
-          <textarea id="message" rows={4} className="block h-[40vh] p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+        <CodeEditor initialValue={code} onChange={handleCodeChange} />
+        
 
       
 
@@ -50,6 +63,6 @@ export default function Home() {
 
 
 
-    </main>
+      </React.Fragment>
   )
 }
