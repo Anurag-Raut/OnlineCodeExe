@@ -8,25 +8,37 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/health',(req,res)=>{
-  try{
-
+  try {
     const fs = require('fs');
 
     const currentDir = process.cwd();
-    
-    fs.access(currentDir, fs.constants.F_OK, (err) => {
-      if (err) {
-        res.status(400).send(true);
-        console.error('Current working directory does not exist or is deleted.');
-      } else {
-        res.status(200).send(true);
-        console.log('Current working directory exists and is not deleted.');
+
+    // Create a dummy test code for the health check
+    const testCode = `
+      #include <iostream>
+      int main() {
+        std::cout << "Health Check" << std::endl;
+        return 0;
       }
+    `;
+
+    fs.writeFileSync('test_code.cpp', testCode);
+
+    exec('g++ test_code.cpp -o test_code -std=c++17', (error, stdout, stderr) => {
+      if (error) {
+        return res.status(500).json({ error: stderr, q: 'err' });
+      }
+
+      fs.access(currentDir + '/test_code', fs.constants.F_OK, (err) => {
+        if (err) {
+          return res.status(500).send(false);
+        }
+
+        res.status(200).json(true);
+      });
     });
-
-  }
-  catch(error){
-
+  } catch (error) {
+    res.status(400).send(false);
   }
  
 })
@@ -48,7 +60,7 @@ app.post('/execute', (req, res) => {
     // Compile the C++ code
     exec('g++ temp_code.cpp -o temp_code -std=c++17 -lstdc++fs', (error, stdout, stderr) => {
       if (error) {
-        return res.status(500).json({ error: stderr });
+        return res.status(500).json({ error: stderr ,q:'err'});
       }
 
       // Run the executable with input redirection
@@ -57,13 +69,13 @@ app.post('/execute', (req, res) => {
           if(execError.killed){
             return res.status(500).json({ error: "TIMEOUT" });
           }
-          return res.status(500).json({ error: stderr });
+          return res.status(500).json({ error: stderr,q:'error' });
         }
         return res.json({ output: stdout.trim() });
       });
     });
   } catch (error) {
-    return res.status(500).json({ error: error });
+    return res.status(500).json({ error: error ,q:'errrroor'});
   }
 });
 

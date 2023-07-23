@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: node-app
-          image: anurag86/code-exe:1.0.8
+          image: anurag86/code-exe:1.1.2
           ports:
             - containerPort: 4000
 
@@ -24,6 +24,6 @@ spec:
               path: /health
               port: 4000
             initialDelaySeconds: 10
-            periodSeconds: 10
+            periodSeconds: 5
             timeoutSeconds: 5
             failureThreshold: 3
