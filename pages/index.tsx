@@ -25,7 +25,7 @@ export default function Home() {
     console.log(contents);
     console.log(contents);
     try {
-      const res = await axios.post('http://167.71.224.29:8000/execute', { code: contents, input: inputArea.value });
+      const res = await axios.post('https://www.code-exe.co:8000/execute', { code: contents, input: inputArea.value });
       console.log(res);
       outputArea.value = res.data.output;
 
@@ -37,12 +37,18 @@ export default function Home() {
 
   }
   return (
-    <React.Fragment>
+    <React.Fragment >
        <Head>
 
         <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/styles/default.min.css"></link>
     </Head>
-    <button onClick={send} type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Run Code</button>
+    <div className='w-full flex items-center justify-between'>
+      <p className='text-2xl font-bold'> C++ code executor</p>
+     
+    <button onClick={send} type="button" className="text-white m-3 bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Run Code</button>
+
+
+    </div>
 
       <div className='flex h-screen'>
 
@@ -56,7 +62,7 @@ export default function Home() {
         <div className='w-full'>
 
         <textarea id="input" rows={4} className="block h-1/2 resize-none p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your Input code..."></textarea>
-          <textarea id="output" rows={4} className="block h-1/2 resize-none h-full p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Output..."></textarea>
+          <textarea id="output" rows={4} className="block h-1/2 resize-none  p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Output..."></textarea>
 
         </div>
 
