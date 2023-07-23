@@ -25,14 +25,14 @@ export default function Home() {
     console.log(contents);
     console.log(contents);
     try {
-      const res = await axios.post('http://127.0.0.1/execute', { code: contents, input: inputArea.value });
+      const res = await axios.post('http://167.71.224.29:8000/execute', { code: contents, input: inputArea.value });
       console.log(res);
       outputArea.value = res.data.output;
 
     }
     catch (error: any) {
-      outputArea.value= "Error - " + error.response.data.error
-      console.error(error.response.data.error)
+      // outputArea.value= "Error - " + error.response.data.error
+      console.error(error)
     }
 
   }
