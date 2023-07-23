@@ -25,7 +25,7 @@ export default function Home() {
     console.log(contents);
     console.log(contents);
     try {
-      const res = await axios.post('https://www.code-exe.co:8000/execute', { code: contents, input: inputArea.value });
+      const res = await axios.post('https://code-exe.co:8000/execute', { code: contents, input: inputArea.value });
       console.log(res);
       outputArea.value = res.data.output;
 
