@@ -11,7 +11,13 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
-  const [code, setCode] = useState('function sayHello() {\n  console.log("Hello, world!");\n}');
+  const [code, setCode] = useState(`#include <iostream>
+
+  int main() {
+      // Print "Hello, World!" to the console
+      std::cout << "Hello, World!" << std::endl;
+      return 0;
+  }`);
   const handleCodeChange = (newCode:string) => {
     setCode(newCode);
   };
