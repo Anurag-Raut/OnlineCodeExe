@@ -37,7 +37,7 @@ export default function Home() {
 
     }
     catch (error: any) {
-      // outputArea.value= "Error - " + error.response.data.error
+      outputArea.value= "Error - " + error.response.data.error
       console.error(error)
     }
 
